@@ -1,30 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Developer Skills & Editor Setup</title>
-    <style>
-      body {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        background: linear-gradient(to top left, #28b487, #7dd56f);
-      }
-      h1 {
-        font-family: sans-serif;
-        font-size: 50px;
-        line-height: 1.3;
-        width: 100%;
-        padding: 30px;
+<head>
+  <title>Pos Screen</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+ <link href="https://fonts.googleapis.com/css?family=Numans" rel="stylesheet">
+  <style>
+    Body{
+        background-color: #f0f0f0;
+        text-transform: capitalize;
+        background-image: url("");
+    }
+    .navbar-inverse{
+        background-color: black;
+        border: 2px solid cadetblue;
+    }
+    .product{
+        box-shadow: 0 0px 2px 1px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+        color: rgba(0,0,0,0.87);
+        background: #fff;    
+    }
+    .bill{
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+        border-radius: 6px;
+        color: rgba(0,0,0,0.87);
+        background: #fff;
+    }
+    .Pro_edit{
+        margin: 10px;
+        float: right;
+        color:blue;
+    }
+    .Pro_Price{
+        margin: 10px;
+        float: right;
+    }
+    .Pro_title{
+        border-bottom: 2px solid #f0f0f0;
+        background-color: white;
+        border: 1px solid lightgrey;
+    }
+    .Pro_List {
+        border-bottom: 2px solid #f0f0f0;
         text-align: center;
-        color: white;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Developer Skills & Editor Setup</h1>
-    <script src="script.js"></script>
-  </body>
+    }
+    .Pro_Search{
+        border-bottom: 2px solid #f0f0f0;
+        background-color: #f0f0f0;
+        padding: 5px;
+    }
+    .Pro_Search2{
+        padding-left: 0px;
+        padding-right: 0px
+    }
+    .input_search{
+        text-align: center;
+        padding: auto;
+        margin: 4px;
+    }
+    #custom-search-input {
+        margin:0;
+        margin-top: 0px;
+        padding: 0;
+    }
+ 
+    #custom-search-input .search-query {
+        padding-right: 3px;
+        padding-right: 4px \9;
+        padding-left: 3px;
+        padding-left: 4px \9;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+ 
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+ 
+    #custom-search-input button {
+        border: 0;
+        background: none;
+        /** belows styles are working good */
+        padding: 2px 5px;
+        margin-top: 2px;
+        position: relative;
+        left: -28px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        color:#D9230F;
+    }
+ 
+    .search-query:focus + button {
+        z-index: 3;   
+    }
+    .table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd;
+        text-align: center;
+    }
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1px;
+    } 
+    .table1>tbody>tr:nth-child(even){
+        background-color: lightyellow;
+    } 
+    .table1>tbody>tr>td, .table1>tbody>tr>th, .table1>tfoot>tr>td, .table1>tfoot>tr>th, .table1>thead>tr>td, .table1>thead>tr>th {
+        padding: 4px 8px 4px 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+    /*add and remove Qty button*/
+    .input-group {
+        position: relative;
+        display: table;
+        border-collapse: separate;
+    }
+    .input-group-btn {
+        position: relative;
+        font-size: 0;
+        white-space: nowrap;
+    }
+
+    .input-group-addon, .input-group-btn {
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+    .input-group .form-control, .input-group-addon, .input-group-btn {
+        display: table-cell;
+    }
+    .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
+        z-index: 2;
+        margin-left: 1px;
+        background-color: #f0f0f0;
+    }
+    #td_sm{
+        width:10px;
+    }
+    /* closed */
+    .bill_type{
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .pay_btn{
+        padding-right: 1px;
+        padding-left: 1px;
+        padding-bottom: 5px;
+    }
+    .pay_btn .btn-default, .btn-danger, .btn-success, .btn-warning, .btn-info{
+        width: 100%; 
+        border-radius: 1px;
+    }
+    .bill_type .form-control{
+        background-color: #f0f8f0; 
+        border-radius: 1px;
+    }
+    /* Border from Y to X  */
+    div.borderYtoX a:before, div.borderYtoX a:after
+    {
+        position: absolute;
+        opacity: 0.5;
+        height: 100%;
+        width: 2px;
+        content: '';
+        background: #FFF;
+        transition: all 0.3s;
+    }
+
+    div.borderYtoX a:before
+    {
+        left: 0px;
+        top: 0px;
+    }
+
+    div.borderYtoX a:after
+    {
+        right: 0px;
+        bottom: 0px;
+    }
+
+    div.borderYtoX a:hover:before, div.borderYtoX a:hover:after
+    {
+        opacity: 1;
+        height: 2px;
+        width: 100%;
+    }
+    .table2>tbody>tr:nth-child(even){
+        background-color: white;
+    } 
+    .table2>tbody>tr>td, .table2>tbody>tr>th, .table2>tfoot>tr>td, .table2>tfoot>tr>th, .table2>thead>tr>td, .table2>thead>tr>th {
+        padding: 8px 8px 8px 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        font-weight: bold;
+        text-align: end;
+    }
+    .total{
+        color: green;
+        font-size: 15px;
+    }
+    .bal_amt{
+        color: brown;
+        font-size: 20px;
+    }
+    ::selection {
+      background-color: #b5e2e7;
+    }
+
+    ::-moz-selection {
+      background-color: #8ac7d8;
+    }
+
+    #logbox {
+      padding: 10px;
+      margin: 50px auto;
+      width: 340px;
+      -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+      -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+      background-color: rgba(0,0,0,0.5) !important;
+      color: white;
+      font-family: 'Numans', sans-serif;
+    }
+    .input {
+      width: 75%;
+      height: 50px;
+      display: block;
+      margin: 0 auto 15px;
+      padding: 0 15px;
+      border: none;
+      border-bottom: 2px solid #ebebeb;
+    }
+    .input:focus {
+      outline: none;
+      border-bottom-color: #3CC !important;
+    }
+    .input:hover {
+      border-bottom-color: #dcdcdc;
+    }
+    .input:invalid {
+      box-shadow: none;
+    }
+
+    .pass:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset;
+    }
+
+    .inputButton {
+      position: relative;
+      width: 85%;
+      height: 50px;
+      display: block;
+      margin: 30px auto 30px;
+      color: white;
+      background-color: #3CC;
+      border: none;
+      -webkit-box-shadow: 0 5px 0 #2CADAD;
+      -moz-box-shadow: 0 5px 0 #2CADAD;
+      box-shadow: 0 5px 0 #2CADAD;
+    }
+    .inputButton:hover {
+      top: 2px;
+      -webkit-box-shadow: 0 3px 0 #2CADAD;
+      -moz-box-shadow: 0 3px 0 #2CADAD;
+      box-shadow: 0 3px 0 #2CADAD;
+    }
+    .inputButton:active {
+      top: 5px;
+      box-shadow: none;
+    }
+    .inputButton:focus {
+      outline: none;
+    }
+    .sign{
+        background-image: url(2.jpg);
+    }
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        background-color: #f0f8f0;
+        opacity: 1;
+    }
+    .Pro_Add{
+        box-shadow: 0 0px 2px 1px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+        color: rgba(0,0,0,0.87);
+        background: #f0f0f0;  
+        text-align: center;
+    }
+    .responsive{
+        min-height:55vh;
+    }
+    .Pro_List table thead tr th{
+      font-family: 'Numans', sans-serif; 
+    }
+    .Pro_billing{
+        color:grey;
+    }
+    .cashpart{
+        margin: 3px 0px;
+    }
+    .cardpart{
+        margin: 3px 0px;
+    }
+    .cash{
+        padding: 0px 20px;
+    }
+    .card{
+        padding: 0px 2px;
+    }
+    .card input, select{
+       margin: 5px;
+    }
+    .Pro_casetype label{
+      font-variant: small-caps;
+      color:#524f4fde;
+      background-color: #f8f8f8;
+      
+    }
+    .Pro_casetype{
+      background-color: #f8f8f8;
+    }
+    .Pro_casetype input, .card select{
+      background-color: #f0f8f1;
+    }
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </button>
+          <a class="navbar-brand" href="#">Pos</a>
+        </div>
+        <div class="collapse navbar-collapse teal borderYtoX" id="myNavbar">
+          <ul class="nav navbar-nav">
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-toggle="modal" data-target="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+       <div class="row">
+            <div class="col-sm-8">
+                <div class="col-sm-12 product">
+                    <div class="row Pro_title">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <h4 class="text-center">All Products</h4></div>
+                        <div class="col-sm-4"><!-- <button class="btn btn-default btn-xs Pro_edit">Edit</button> --></div>
+                    </div>
+                    <div class="row Pro_List">
+                        <div class="col-sm-3 bill_type">
+                                <input id="date" type="date" class="form-control" name="date" placeholder="Date">
+                        </div>
+                        <div class="col-sm-3 bill_type">
+                            <input type="text" class="form-control" value="Cash" placeholder="Customer Name">
+                        </div>
+                        <div class="col-sm-3 bill_type">
+                            <input type="text" class="form-control" value="R-11" placeholder="Bill No">
+                        </div>
+                        <div class="col-sm-3 bill_type">
+                            <input type="number" class="form-control" value="9786756453" placeholder="Customer mobileNo">    
+                        </div>
+                    </div>
+                    <div class="row Pro_Search">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-barcode"></i></span>
+                            <input type="text" class="search-query form-control" placeholder="Search and Scan Qr code">
+                            <div class="input-group-btn">
+                              <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row Pro_Add">
+                       <div class="col-sm-3"> 
+                        <div class="form-group">
+                            <label>Item</label>
+                            <input type="text" class="form-control" value="bread" size="1" readonly />
+                        </div> 
+                        </div>   
+                        <div class="col-sm-3"> 
+                        <div class="form-group">
+                            <label>Qty</label>
+                            <input type="text" class="form-control" value="2" size="1" >
+                        </div> 
+                        </div>  
+                        <div class="col-sm-2"> 
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" class="form-control" value="$ 50" size="1" readonly />
+                        </div> 
+                        </div>  
+                        <div class="col-sm-2"> 
+                        <div class="form-group">
+                            <label>Discount</label>
+                            <input type="text" class="form-control" value="0.00" size="1" readonly />
+                        </div> 
+                        </div>  
+                        <div class="col-sm-2"> 
+                        <div class="form-group">
+                            <label >Amount</label>
+                            <input type="text" class="form-control" value="$ 100.00" size="1" readonly />
+                        </div> 
+                        </div>  
+                    </div><br>
+                    <div class="row Pro_List">
+                        <div class="table-responsive responsive">
+                          <table class="table table-hover table1"  id="dsTable">
+                            <thead>
+                              <tr class="bg-info">
+                                <th id="td_sm">S.no</th>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                                <th id="td_sm">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                             <tr>
+                                <td id="td_sm">1</td>
+                                <td>bread</td>
+                                <td>$ 50</td>
+                                <td width="100" class="text-center item-control-btns">2
+                                    <!-- <div class="input-group input-group-sm">
+                                        <span class="input-group-btn item-control-btns-wrapper">
+                                            <button class="btn btn-default item-reduce">-</button>
+                                            <button name="shop_item_quantity" value="1" class="btn btn-default" style="width:40px;">1</button>
+                                            <button class="btn btn-default item-add">+</button>
+                                        </span>
+                                    </div> -->
+                                </td>
+                                <td>00.00</td>
+                                <td>$ 100</td>
+                                <td id="td_sm"><i onclick="deleteRow(this)" class="fas fas fa-times"></i></i></td>
+                              </tr>
+                              <tr>
+                                <td id="td_sm">2</td>
+                                <td>bread</td>
+                                <td>$ 50</td>
+                                <td width="100"  class="text-center item-control-btns">2
+                                    <!-- <div class="input-group input-group-sm">
+                                        <span class="input-group-btn item-control-btns-wrapper">
+                                            <button class="btn btn-default item-reduce">-</button>
+                                            <button name="shop_item_quantity" value="1" class="btn btn-default" style="width:40px;">1</button>
+                                            <button class="btn btn-default item-add">+</button>
+                                        </span>
+                                    </div> -->
+                                </td>
+                                <td>00.00</td>
+                                <td>$ 100</td>
+                                <td id="td_sm"><i onclick="deleteRow(this)" class="fas fas fa-times"></i></i></td>
+                              </tr>
+                               <tr>
+                                <td id="td_sm">3</td>
+                                <td>bread</td>
+                                <td>$ 50</td>
+                                <td width="100"  class="text-center item-control-btns">2
+                                    <!-- <div class="input-group input-group-sm">
+                                        <span class="input-group-btn item-control-btns-wrapper">
+                                            <button class="btn btn-default item-reduce">-</button>
+                                            <button name="shop_item_quantity" value="1" class="btn btn-default" style="width:40px;">1</button>
+                                            <button class="btn btn-default item-add">+</button>
+                                        </span>
+                                    </div> -->
+                                </td>
+                                <td>00.00</td>
+                                <td>$ 100</td>
+                                <td id="td_sm"><i onclick="deleteRow(this)" class="fas fas fa-times"></i></i></td>
+                              </tr>
+                               <tr>
+                                <td id="td_sm">4</td>
+                                <td>bread</td>
+                                <td>$ 50</td>
+                                <td width="100" class="text-center item-control-btns">2
+                                    <!-- <div class="input-group input-group-sm">
+                                        <span class="input-group-btn item-control-btns-wrapper">
+                                            <button class="btn btn-default item-reduce">-</button>
+                                            <button name="shop_item_quantity" value="1" class="btn btn-default" style="width:40px;">1</button>
+                                            <button class="btn btn-default item-add">+</button>
+                                        </span>
+                                    </div> -->
+                                </td>
+                                <td>00.00</td>
+                                <td>$ 100</td>
+                                <td id="td_sm"><i onclick="deleteRow(this)" class="fas fas fa-times"></i></i></td>
+                              </tr>
+                               <tr>
+                                <td id="td_sm">5</td>
+                                <td>bread</td>
+                                <td>$ 50</td>
+                                <td width="100" class="text-center item-control-btns">2
+                                    <!-- <div class="input-group input-group-sm">
+                                        <span class="input-group-btn item-control-btns-wrapper">
+                                            <button class="btn btn-default item-reduce">-</button>
+                                            <button name="shop_item_quantity" value="1" class="btn btn-default" style="width:40px;">1</button>
+                                            <button class="btn btn-default item-add">+</button>
+                                        </span>
+                                    </div> -->
+                                </td>
+                                <td>00.00</td>
+                                <td>$ 100</td>
+                                <td id="td_sm"><i onclick="deleteRow(this)" class="fas fas fa-times"></i></i></td>
+                              </tr>
+                               <tr>
+                                <td id="td_sm">6</td>
+                                <td>bread</td>
+                                <td>$ 50</td>
+                                <td width="100" class="text-center item-control-btns">2
+                                    <!-- <div class="input-group input-group-sm">
+                                        <span class="input-group-btn item-control-btns-wrapper">
+                                            <button class="btn btn-default item-reduce">-</button>
+                                            <button name="shop_item_quantity" value="1" class="btn btn-default" style="width:40px;">1</button>
+                                            <button class="btn btn-default item-add">+</button>
+                                        </span>
+                                    </div> -->
+                                </td>
+                                <td>00.00</td>
+                                <td>$ 100</td>
+                                <td id="td_sm"><i onclick="deleteRow(this)" class="fas fas fa-times"></i></i></td>
+                              </tr>
+                            
+                              
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
+                </div><!---------col-sm-12 closed---------------->
+            </div>
+            <div class="col-sm-4 ">
+                <div class="col-sm-12 bill">
+                   <div class="row Pro_title">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <h4 class="text-center">Billing</h4></div>
+                        <div class="col-sm-2"><!-- <button class="btn btn-default btn-xs Pro_edit">Edit</button> --></div>
+                    </div>
+                    <div class="row Pro_billing">
+                        <div class="col-sm-4"><label>Counter: Admin</label></div>
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">Date: 20/02/2019</div>
+                    </div><br><br>
+                   <div class="row Pro_List">
+                      <table class="table table-hover table2">
+                            <tbody>
+                              <tr>
+                                <td class="bg-info">Total Qty :</td>
+                                <td class="bg-default">5</td>
+                              </tr>
+                              <tr>
+                                <td class="bg-info">Sub Total:</td>
+                                <td class="bg-default">400</td>
+                              </tr>
+                              <tr>
+                                <td class="bg-info">Discount :</td>
+                                <td class="bg-default">- ₹40</td>
+                              </tr>
+                              <tr>
+                                <td class="bg-info">Tax:</td>
+                                <td class="bg-default">+ ₹30</td>
+                              </tr>
+                              <tr>
+                                <td class="bg-info total"><b>TOTAL:</b></td>
+                                <td class="bg-default total"><b>₹410</b></td>
+                              </tr>
+                              <tr>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td class="bg-info">Due:</td>
+                                <td class="bg-default">
+                                    <input type="text" class="form-control" value="₹500" size="1" style="text-align:right"></td>
+                              </tr>
+                              <tr>
+                                <td class="bg-info bal_amt">Change :</td>
+                                <td class="bg-default bal_amt">₹90</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          </div>
+                          <div class="row Pro_casetype">
+                            <div class="col-sm-12 cashpart">
+                                <div class="col-sm-3">
+                                  <input type="radio" name="pay"><label>Cash</label>
+                                </div>
+                                <div class="col-sm-9 cash">
+                                  <input type="text" class="form-control" placeholder="Cash Amount">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 cardpart">
+                                <div class="col-sm-3">
+                                  <input type="radio" name="pay"><label>Card</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="col-sm-6 card">
+                                      <select class="form-control">
+                                          <option value="">Choose card</option>
+                                          <option value="">Master card</option>
+                                          <option value="">Credit card</option>
+                                          <option value="">MADA card</option>
+                                      </select>
+                                      <input type="number" class="form-control" placeholder="Refernce number">
+                                   </div>
+                                   <div class="col-sm-6 card">
+                                      <input type="text" class="form-control" placeholder="Card Amount">
+                                      <input type="date" class="form-control" placeholder="Expiry Date">
+                                   </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                          <div class="row Pro_List">
+                            <div class="col-sm-3 pay_btn">
+                                <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                            <div class="col-sm-3  pay_btn">
+                                <button class="btn btn-success"><i class="fas fa-save"></i> Save</button>
+                            </div>
+                            <div class="col-sm-3 pay_btn">
+                                <button class="btn btn-info"><i class="fas fa-print"></i> Print</button>
+                            </div>
+                            <div class="col-sm-3 pay_btn">
+                                <button class="btn btn-warning"><i class="fas fa-times"></i> close</button> 
+                            </div>
+                        </div>
+              </div>
+         </div>
+    </div>
+
+<!-- Trigger the modal with a button -->
+<!-- Modal -->
+<div id="signup" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign Up </h4>
+      </div>
+      <div class="modal-body sign">
+        <div class="row">
+            <div id="logbox">
+              <form id="signup" method="post" action="/signup">
+                <h3>create an account</h3>
+                <input name="user[name]" type="text" placeholder="What's your username?" pattern="^[\w]{3,16}$" autofocus="autofocus" required="required" class="input pass"/>
+                <input name="user[password]" type="password" placeholder="Choose a password" required="required" class="input pass"/>
+                <input name="user[password2]" type="number" placeholder="Mobile number" required="required" class="input pass"/>
+                <input name="user[email]" type="email" placeholder="Email address" class="input pass"/>
+                <input type="submit" value="Sign me up!" class="inputButton"/>
+                
+              </form>
+            </div>
+           </div>
+            <!--col-md-6-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="login" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign In</h4>
+      </div>
+      <div class="modal-body sign">
+            <!--col-md-6-->
+            
+           <div class="row">
+            <div id="logbox">
+              <form id="signup" method="post" action="/signup">
+                <h3>account login</h3>
+                <input name="user[email]" type="email" placeholder="enter your email" class="input pass"/>
+                <input name="user[password]" type="password" placeholder="enter your password" required="required" class="input pass"/>
+                <input type="submit" value="Sign me in!" class="inputButton"/>
+                <div class="text-center"">
+                            <a href="#" id="">forgot password</a>
+                        </div>
+              </form>
+            </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+  function deleteRow(btn) {
+  var row = btn.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+</script>
+</body>
 </html>
